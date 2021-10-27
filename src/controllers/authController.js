@@ -3,9 +3,10 @@ const userModel = require("../database/models/index.js").User;
 
 const signInUser = async (req, res) => {
   //check if user exist and create new if not
-  await userModel.findOrCreate({
+  const [user, created] = await userModel.findOrCreate({
     where: { email: req.body.email },
   });
+
   //create an expiring token
   const token = jwt.sign({ email: req.body.email }, process.env.SECRET_KEY, {
     expiresIn: "1h",
@@ -13,7 +14,7 @@ const signInUser = async (req, res) => {
 
   res.json({
     message: "Signed In",
-    data: { token, email: req.body.email },
+    data: { token, email: user.email, uuid: user.uuid },
     status: 200,
   });
 };
