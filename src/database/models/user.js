@@ -11,6 +11,7 @@ const User = sequelize.define("User", {
   uuid: {
     type: DataTypes.UUID,
     defaultValue: Sequelize.UUIDV4,
+    primaryKey: true,
   },
   subscribed: {
     type: DataTypes.BOOLEAN,

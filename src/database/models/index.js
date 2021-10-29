@@ -1,5 +1,8 @@
 const User = require("./user.js");
+const Profile = require("./profile.js");
 const sequelize = require("../config.js");
+
+User.hasOne(Profile);
 
 sequelize
   .sync()
@@ -11,6 +14,7 @@ sequelize
   });
 module.exports = {
   User,
+  Profile,
   //Invoice,
   //Lead,
 };
