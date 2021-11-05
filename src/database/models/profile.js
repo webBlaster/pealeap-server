@@ -11,7 +11,10 @@ const Profile = sequelize.define("Profile", {
   imageUrl: {
     type: DataTypes.STRING,
     allowNull: true,
-    unique: true,
+  },
+  publicId: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   phoneNumber: {
     type: DataTypes.STRING,
@@ -25,14 +28,10 @@ const Profile = sequelize.define("Profile", {
   accountNumber: {
     type: DataTypes.STRING,
     allowNull: true,
-    unique: true,
   },
   accountName: {
     type: DataTypes.STRING,
     allowNull: true,
-  },
-  userUuid: {
-    type: DataTypes.UUID,
   },
 });
 
