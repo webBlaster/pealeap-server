@@ -47,6 +47,18 @@ const updateProfile = async (req, res) => {
   }
 };
 
+async function getProfile(req, res) {
+  const { userId } = req.body;
+  const profile = await profileModel.findOne({ where: { UserUuid: userId } });
+  if (profile) {
+    res.json({
+      status: 200,
+      data: profile,
+    });
+    return;
+  }
+}
+
 async function verifyAccountDetails(accountNumber, bankCode) {
   const { PAYSTACK_API } = constants;
   return await fetch(
@@ -117,4 +129,4 @@ async function deleteImage(imageId) {
   });
 }
 
-module.exports = { updateProfile, updateImage };
+module.exports = { updateProfile, updateImage, getProfile };

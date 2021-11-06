@@ -25,6 +25,7 @@ app.post(
 );
 
 app.post("/update.profile", profileController.updateProfile);
+app.post("/profile", profileController.getProfile);
 
 const port = process.env.PORT || 8000;
 
