@@ -8,19 +8,48 @@ const updateImage = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-  //check if profile exist if so update it else create new
-  const [profile, created] = await profileModel.findOrCreate({
-    where: { userUuid: req.body.uuid },
-  });
-  await verifyAccountDetails(accountNumber, bankCode);
-  res.json({
-    message: "Profile Updated",
-  });
+  const { accountNumber, phoneNumber, accountName, bankName, name, userId } =
+    req.body;
+  console.log(bankName);
+  const result = await verifyAccountDetails(
+    accountNumber,
+    bankName?.split(",")[1]
+  );
+  console.log(result);
+  if (result.status) {
+    //check if profile exist if so update it else create new
+    const [profile, created] = await profileModel.findOrCreate({
+      where: { UserUuid: userId },
+      defaults: {
+        UserUuid: userId,
+        accountNumber,
+        name,
+        phoneNumber,
+        bankName: bankName?.split(",")[0],
+        accountName: result.data.account_name,
+      },
+    });
+    if (created) {
+      res.json({
+        message: "Profile Created",
+      });
+      return;
+    }
+    profile.name = name;
+    profile.accountName = result.data.account_name;
+    profile.accountNumber = accountNumber;
+    profile.phoneNumber = phoneNumber;
+    profile.bankName = bankName?.split(",")[0];
+    profile.save();
+    res.json({
+      message: "Profile Updated",
+    });
+  }
 };
 
 async function verifyAccountDetails(accountNumber, bankCode) {
   const { PAYSTACK_API } = constants;
-  await fetch(
+  return await fetch(
     `${PAYSTACK_API}/bank/resolve?account_number=${accountNumber}&bank_code=${bankCode}`,
     {
       method: "GET",
@@ -33,6 +62,7 @@ async function verifyAccountDetails(accountNumber, bankCode) {
     .then(async (response) => {
       const result = await response.json();
       console.log(result);
+      return result;
     })
     .catch((error) => {
       console.log(error);
