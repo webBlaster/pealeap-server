@@ -1,4 +1,4 @@
-const invoiceModel = require("../database/models/invoice.js").Invoice;
+const invoiceModel = require("../database/models/index.js").Invoice;
 
 async function createInvoice(req, res) {
   const { userId, name, customerNumber, amount, note } = req.body;
