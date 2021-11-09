@@ -25,6 +25,10 @@ const Invoice = sequelize.define("Invoice", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  paid: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = Invoice;
