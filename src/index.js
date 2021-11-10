@@ -12,6 +12,7 @@ const upload = multer({ dest: os.tmpdir() });
 const authController = require("./controllers/authController.js");
 const profileController = require("./controllers/profileController.js");
 const invoiceController = require("./controllers/invoiceController.js");
+const leadController = require("./controllers/leadController.js");
 
 app.get("/", async (req, res) => {
   res.json("Pealeap Api 1.0.0");
@@ -31,6 +32,8 @@ app.post("/profile", profileController.getProfile);
 app.post("/create.invoice", invoiceController.createInvoice);
 app.post("/invoice", invoiceController.getInvoice);
 app.post("/invoices", invoiceController.getAllInvoice);
+
+app.post("/create.leads", leadController.createLeads);
 
 const port = process.env.PORT || 8000;
 

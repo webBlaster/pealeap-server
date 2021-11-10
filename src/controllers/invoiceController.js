@@ -19,11 +19,11 @@ async function createInvoice(req, res) {
 
 async function getAllInvoice(req, res) {
   const { userId } = req.body;
-  const invoice = await invoiceModel.findAll({ where: { UserUuid: userId } });
-  if (invoice) {
+  const invoices = await invoiceModel.findAll({ where: { UserUuid: userId } });
+  if (invoices) {
     res.json({
       status: 200,
-      data: invoice,
+      data: invoices,
     });
     return;
   }

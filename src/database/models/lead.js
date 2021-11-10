@@ -8,21 +8,37 @@ const Lead = sequelize.define("Lead", {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
+  invoiceUuid: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  friendName: {
+  number: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  customerNumber: {
+  friendsName: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  message: {
+  friendsNumber: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  couponCode: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  couponUsed: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  marked: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
 });
 
