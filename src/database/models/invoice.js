@@ -25,6 +25,14 @@ const Invoice = sequelize.define("Invoice", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  discountLevel: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+    validate: {
+      min: 0,
+      max: 2,
+    },
+  },
   paid: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
