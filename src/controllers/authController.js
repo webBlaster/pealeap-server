@@ -14,11 +14,28 @@ const signInUser = async (req, res) => {
 
   res.json({
     message: "Signed In",
-    data: { token, email: user.email, uuid: user.uuid },
+    data: {
+      token,
+      email: user.email,
+      uuid: user.uuid,
+      subscribed: user.subscribed,
+    },
     status: 200,
   });
 };
 
+async const subscribeUser = (req, res) => {
+const user = await userModel.find({where: {uuid: req.body.uuid}});
+if(user){
+  user.subscribed = true;
+  user.save();
+  res.json({
+    message: "User Subscribed",
+    status: 200
+  })
+}
+}
+
 const logoutUser = (req, res) => {};
 
-module.exports = { signInUser, logoutUser };
+module.exports = { signInUser, logoutUser , subscribeUser};

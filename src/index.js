@@ -19,6 +19,7 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/signin", authController.signInUser);
+app.post("/subscribe", authController.subscribeUser);
 
 app.post(
   "/update.picture",
