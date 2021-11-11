@@ -24,18 +24,18 @@ const signInUser = async (req, res) => {
   });
 };
 
-async const subscribeUser = (req, res) => {
-const user = await userModel.find({where: {uuid: req.body.uuid}});
-if(user){
-  user.subscribed = true;
-  user.save();
-  res.json({
-    message: "User Subscribed",
-    status: 200
-  })
-}
-}
+const subscribeUser = async (req, res) => {
+  const user = await userModel.find({ where: { uuid: req.body.uuid } });
+  if (user) {
+    user.subscribed = true;
+    user.save();
+    res.json({
+      message: "User Subscribed",
+      status: 200,
+    });
+  }
+};
 
 const logoutUser = (req, res) => {};
 
-module.exports = { signInUser, logoutUser , subscribeUser};
+module.exports = { signInUser, logoutUser, subscribeUser };
