@@ -25,7 +25,7 @@ const signInUser = async (req, res) => {
 };
 
 const subscribeUser = async (req, res) => {
-  const user = await userModel.find({ where: { uuid: req.body.uuid } });
+  const user = await userModel.findOne({ where: { uuid: req.body.uuid } });
   if (user) {
     user.subscribed = true;
     user.save();
