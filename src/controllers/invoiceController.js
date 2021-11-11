@@ -41,8 +41,22 @@ async function getInvoice(req, res) {
   }
 }
 
+async function updateInvoiceToPaid(req, res) {
+  const { uuid } = req.body;
+  const invoice = await invoiceModel.findOne({ where: { uuid: uuid } });
+  if (invoice) {
+    invoice.paid = true;
+    invoice.save();
+    res.json({
+      status: 200,
+      message: "Invoice updated to paid",
+    });
+  }
+}
+
 module.exports = {
   getAllInvoice,
   createInvoice,
   getInvoice,
+  updateInvoiceToPaid,
 };

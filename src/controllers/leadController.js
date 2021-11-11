@@ -94,8 +94,22 @@ async function updateDiscountLevel(invoiceId) {
   }
 }
 
+async function updateLeadToMarked(req, res) {
+  const { uuid } = req.body;
+  const lead = await leadModel.findOne({ where: { uuid: uuid } });
+  if (lead) {
+    lead.marked = true;
+    lead.save();
+    res.json({
+      status: 200,
+      message: "Lead updated to marked",
+    });
+  }
+}
+
 module.exports = {
   getAllLeads,
   createLeads,
   getLead,
+  updateLeadToMarked,
 };

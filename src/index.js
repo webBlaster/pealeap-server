@@ -29,10 +29,12 @@ app.post(
 app.post("/update.profile", profileController.updateProfile);
 app.post("/profile", profileController.getProfile);
 
+app.post("/invoice.update.payment", invoiceController.updateInvoiceToPaid);
 app.post("/create.invoice", invoiceController.createInvoice);
 app.post("/invoice", invoiceController.getInvoice);
 app.post("/invoices", invoiceController.getAllInvoice);
 
+app.post("/leads.update.marked", leadController.updateLeadToMarked);
 app.post("/create.leads", leadController.createLeads);
 app.post("/leads", leadController.getAllLeads);
 app.post("/lead", leadController.getLead);
