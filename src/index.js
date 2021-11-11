@@ -34,6 +34,8 @@ app.post("/invoice", invoiceController.getInvoice);
 app.post("/invoices", invoiceController.getAllInvoice);
 
 app.post("/create.leads", leadController.createLeads);
+app.post("/leads", leadController.getAllLeads);
+app.post("/lead", leadController.getLead);
 
 const port = process.env.PORT || 8000;
 

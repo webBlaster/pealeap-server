@@ -14,6 +14,8 @@ async function createLeads(req, res) {
     friendsNumber,
   } = req.body;
 
+  let coupon = await createCoupon();
+
   //first lead
   const firstLead = await leadModel.create({
     invoiceUuid,
@@ -21,7 +23,7 @@ async function createLeads(req, res) {
     number: firstLeadNumber,
     friendsName,
     friendsNumber,
-    couponCode: await createCoupon(),
+    couponCode: coupon[0],
     UserUuid: userUuid,
   });
   firstLead.save();
@@ -33,7 +35,7 @@ async function createLeads(req, res) {
     number: secondLeadNumber,
     friendsName,
     friendsNumber,
-    CouponCode: await createCoupon(),
+    couponCode: coupon[1],
     UserUuid: userUuid,
   });
   secondLead.save();
@@ -50,17 +52,37 @@ async function createLeads(req, res) {
   }
 }
 
-async function getAllLeads(req, res) {}
+async function getAllLeads(req, res) {
+  const { userUuid } = req.body;
+
+  leads = await leadModel.findAll({ where: { UserUuid: userUuid } });
+  if (leads) {
+    res.json({
+      status: 200,
+      data: leads,
+    });
+    return;
+  }
+}
 
 async function getLead(req, res) {
   const { uuid } = req.body;
+  const lead = await leadModel.findOne({ where: { uuid: uuid } });
+  if (lead) {
+    res.json({
+      status: 200,
+      data: lead,
+    });
+    return;
+  }
 }
 
 async function createCoupon() {
-  return voucherCodes.generate({
+  let coupon = voucherCodes.generate({
     length: 5,
-    count: 1,
+    count: 2,
   });
+  return coupon;
 }
 
 async function updateDiscountLevel(invoiceId) {
