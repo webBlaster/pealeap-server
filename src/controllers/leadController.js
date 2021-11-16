@@ -111,24 +111,20 @@ async function useCouponCode(req, res) {
   //get parameters
   const { code, invoiceId } = req.body;
   //fetch invoice
-  const lead = await leadModel.findOne({ where: { invoiceUuid: invoiceId } });
-  if (!lead) return res.json({ status: 404, message: "Invoice not found" });
+  const lead = await leadModel.findOne({ where: { couponCode: code } });
+  if (!lead) return res.json({ status: 404, message: "Code is invalid" });
   //check if token has been used
   if (lead.couponUsed)
     return res.json({ status: 404, message: "Code already used" });
-  //compare token
-  if (lead.couponCode !== code)
-    return res.json({ status: 404, message: "Code is incorrect" });
-
   //invalidate
   lead.couponUsed = true;
   lead.save();
   //increase discountLevel
   const invoice = await invoiceModel.findOne({ where: { uuid: invoiceId } });
-  if (!invoice) return res.json({ status: 404, message: "Coupon Failed" });
+  if (!invoice) return res.json({ status: 404, message: "Coupon failed" });
   invoice.discountLevel = discountLevel++;
   invoice.save();
-  res.json({ status: 200, message: "coupon Applied" });
+  res.json({ status: 200, message: "Coupon applied" });
 }
 
 module.exports = {
