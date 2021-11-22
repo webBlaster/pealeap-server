@@ -36,6 +36,4 @@ const subscribeUser = async (req, res) => {
   }
 };
 
-const logoutUser = (req, res) => {};
-
-module.exports = { signInUser, logoutUser, subscribeUser };
+module.exports = { signInUser, subscribeUser };

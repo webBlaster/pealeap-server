@@ -122,7 +122,7 @@ async function useCouponCode(req, res) {
   //increase discountLevel
   const invoice = await invoiceModel.findOne({ where: { uuid: invoiceId } });
   if (!invoice) return res.json({ status: 404, message: "Coupon failed" });
-  invoice.discountLevel = discountLevel++;
+  invoice.discountLevel = invoice.discountLevel + 1;
   invoice.save();
   res.json({ status: 200, message: "Coupon applied" });
 }
