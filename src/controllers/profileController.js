@@ -4,7 +4,7 @@ const cloudinary = require("../config.js");
 const profileModel = require("../database/models/index.js").Profile;
 
 const updateImage = async (req, res) => {
-  optimizeAndStoreImage(req.file.path, req, res);
+  if (req.file.path) optimizeAndStoreImage(req.file.path, req, res);
 };
 
 const updateProfile = async (req, res) => {
