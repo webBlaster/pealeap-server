@@ -19,7 +19,10 @@ async function createInvoice(req, res) {
 
 async function getAllInvoice(req, res) {
   const { userId } = req.body;
-  const invoices = await invoiceModel.findAll({ where: { UserUuid: userId } });
+  const invoices = await invoiceModel.findAll({
+    where: { UserUuid: userId },
+    order: [["createdAt", "DESC"]],
+  });
   if (invoices) {
     res.json({
       status: 200,

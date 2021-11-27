@@ -55,7 +55,10 @@ async function createLeads(req, res) {
 async function getAllLeads(req, res) {
   const { userUuid } = req.body;
 
-  leads = await leadModel.findAll({ where: { UserUuid: userUuid } });
+  leads = await leadModel.findAll({
+    where: { UserUuid: userUuid },
+    order: [["createdAt", "DESC"]],
+  });
   if (leads) {
     res.json({
       status: 200,
