@@ -44,7 +44,7 @@ app.post("/leads", leadController.getAllLeads);
 app.post("/lead", leadController.getLead);
 
 //utilities
-//app.post("/utilities", (req, res) => {});
+app.post("/invoice.totals", invoiceController.getInvoiceTotals);
 
 const port = process.env.PORT || 8000;
 

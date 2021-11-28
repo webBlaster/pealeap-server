@@ -57,9 +57,43 @@ async function updateInvoiceToPaid(req, res) {
   }
 }
 
+async function getInvoiceTotals(req, res) {
+  const { uuid } = req.body;
+  const pending = await invoiceModel.sum("amount", {
+    where: { UserUuid: uuid, paid: false },
+  });
+  const pendingDiscount = await invoiceModel.sum("discountLevel", {
+    where: { UserUuid: uuid, paid: false },
+  });
+
+  const paid = await invoiceModel.sum("amount", {
+    where: { UserUuid: uuid, paid: true },
+  });
+  const paidDiscount = await invoiceModel.sum("discountLevel", {
+    where: { UserUuid: uuid, paid: true },
+  });
+
+  if (pending && pendingDiscount && paid && paidDiscount) {
+    let paidPercentage = paidDiscount * 5;
+    let pendingPercentage = pendingDiscount * 5;
+    let paidDiscount = paid * (paidPercentage / 100);
+    let pendingDiscount = pending * (pendingPercentage / 100);
+    let totalPaid = paid - paidDiscount;
+    let totalPending = pending - pendingDiscount;
+
+    res.json({
+      status: 200,
+      data: {
+        paid: totalPaid,
+        pending: totalPending,
+      },
+    });
+  }
+}
 module.exports = {
   getAllInvoice,
   createInvoice,
   getInvoice,
+  getInvoiceTotals,
   updateInvoiceToPaid,
 };
