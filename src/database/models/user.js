@@ -13,6 +13,10 @@ const User = sequelize.define("User", {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
+  isProfileUpdated: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
   subscribed: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,

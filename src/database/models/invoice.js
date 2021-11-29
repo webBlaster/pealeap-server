@@ -11,7 +11,7 @@ const Invoice = sequelize.define("Invoice", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
+    unique: false,
   },
   customerNumber: {
     type: DataTypes.STRING,

@@ -13,7 +13,7 @@ const signInUser = async (req, res) => {
   });
 
   res.json({
-    message: "Signed In",
+    message: "Signed in",
     data: {
       token,
       email: user.email,
@@ -30,10 +30,22 @@ const subscribeUser = async (req, res) => {
     user.subscribed = true;
     user.save();
     res.json({
-      message: "User Subscribed",
+      message: "User subscribed",
       status: 200,
     });
   }
 };
 
-module.exports = { signInUser, subscribeUser };
+const updateProfileStatus = async (req, res) => {
+  const user = await userModel.findOne({ where: { uuid: req.body.uuid } });
+  if (user) {
+    user.isProfileUpdated = true;
+    user.save();
+    res.json({
+      message: "Profile status updated",
+      status: 200,
+    });
+  }
+};
+
+module.exports = { signInUser, subscribeUser, updateProfileStatus };

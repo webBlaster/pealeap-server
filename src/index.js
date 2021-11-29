@@ -20,6 +20,7 @@ app.get("/", async (res) => {
 
 app.post("/signin", authController.signInUser);
 app.post("/subscribe", authController.subscribeUser);
+app.post("/update.profile.status", authController.updateProfileStatus);
 
 //profile
 app.post(
