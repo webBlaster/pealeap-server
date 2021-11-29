@@ -18,7 +18,7 @@ const Invoice = sequelize.define("Invoice", {
     allowNull: false,
   },
   amount: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   note: {
