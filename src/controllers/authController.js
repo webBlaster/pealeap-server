@@ -19,6 +19,7 @@ const signInUser = async (req, res) => {
       email: user.email,
       uuid: user.uuid,
       subscribed: user.subscribed,
+      isProfileUpdated: user.isProfileUpdated,
     },
     status: 200,
   });
