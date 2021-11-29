@@ -31,6 +31,7 @@ const updateProfile = async (req, res) => {
     });
     if (created) {
       res.json({
+        status: 200,
         message: "Profile Created",
       });
       return;
@@ -42,6 +43,7 @@ const updateProfile = async (req, res) => {
     profile.bankName = bankName?.split(",")[0];
     profile.save();
     res.json({
+      status: 200,
       message: "Profile Updated",
     });
   }
