@@ -73,7 +73,7 @@ async function getInvoiceTotals(req, res) {
     where: { UserUuid: uuid, paid: true },
   });
 
-  if (pending && pendingDiscount && paid && paidDiscount) {
+  if (true) {
     let paidPercentage = paidDiscount * 5;
     let pendingPercentage = pendingDiscount * 5;
     let paidDiscount = paid * (paidPercentage / 100);
