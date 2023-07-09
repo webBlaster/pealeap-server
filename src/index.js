@@ -14,8 +14,8 @@ const profileController = require("./controllers/profileController.js");
 const invoiceController = require("./controllers/invoiceController.js");
 const leadController = require("./controllers/leadController.js");
 
-app.get("/", async (res) => {
-  res.json("Pealeap Api 1.0.0");
+app.get("/", async (req, res) => {
+  res.send("Pealeap Api 1.0.0");
 });
 
 app.post("/signin", authController.signInUser);
@@ -47,7 +47,7 @@ app.post("/lead", leadController.getLead);
 //utilities
 app.post("/invoice.totals", invoiceController.getInvoiceTotals);
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
